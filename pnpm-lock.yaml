@@ -32,6 +32,9 @@ importers:
       better-sqlite3:
         specifier: ^12.4.1
         version: 12.4.1
+      bindings:
+        specifier: ^1.5.0
+        version: 1.5.0
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.6.1)
