@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+
+:root {
+	font-family: 'Inter', sans-serif;
+	font-size: 32px;
+	font-optical-sizing: auto;
+	font-style: normal;
+	background-color: black;
+	height: 100%;
+}
+
+@theme {
+	--text-2xs: 0.5rem;
+}
+
+@utility pattern-* {
+	background-size: 10px 10px;
+
+	background-image: repeating-linear-gradient(
+		--value([angle]),
+		currentColor 0px,
+		currentColor 6px,
+		transparent 0px,
+		transparent 50.1%
+	);
+}
+
+@utility pattern-thin-* {
+	background-size: 10px 10px;
+
+	background-image: repeating-linear-gradient(
+		--value([angle]),
+		currentColor 0px,
+		currentColor 2px,
+		transparent 0px,
+		transparent 50.1%
+	);
+}
