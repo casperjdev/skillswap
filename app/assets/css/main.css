@@ -14,16 +14,18 @@
 }
 
 @utility pattern-* {
-	background-size: 10px 10px;
+    --pattern-color: currentColor;
 
-	background-image: repeating-linear-gradient(
-		--value([angle]),
-		currentColor 0px,
-		currentColor 6px,
-		transparent 0px,
-		transparent 50.1%
-	);
+    background-size: 10px 10px;
+    background-image: repeating-linear-gradient(
+            --value([angle]),
+            var(--pattern-color) 0px,
+            var(--pattern-color) 6px,
+            transparent 0px,
+            transparent 50.1%
+    );
 }
+
 
 @utility pattern-thin-* {
 	background-size: 10px 10px;
