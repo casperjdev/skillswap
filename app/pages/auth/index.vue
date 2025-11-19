@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import { useRoute, useRouter } from '#imports';
 import SignInPanel from '@/components/auth/SignInPanel.vue';
 import RegisterPanel from '@/components/auth/RegisterPanel.vue';
-import bgImage from '@/assets/unsplash.jpg';
+import bgImage from '@/assets/images/auth.jpg';
 
 const route = useRoute();
 const router = useRouter();
@@ -29,6 +29,12 @@ function switchTo(target: 'signin' | 'register') {
 	<main
 		class="w-svw h-svh flex justify-center items-center bg-cover bg-center p-4"
 		:style="{ backgroundImage: `url(${bgImage})` }">
+		<!-- powrot -->
+
+		<NuxtLink class="fixed top-4 left-4" to="/">
+			<Button variant="solid" class="block">Home</Button>
+		</NuxtLink>
+
 		<Card
 			additional-classes="relative w-full max-w-xl bg-black/50 text-neutral-950/10! items-end backdrop-blur-sm flex md:flex-row flex-col-reverse gap-4">
 			<!-- Left panel -->

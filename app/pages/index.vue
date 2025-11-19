@@ -21,7 +21,7 @@ definePageMeta({
 				Youth2Youth is a platform where like-minded teenagers can exchange all types of knowledge -
 				from hobbies to real life advice.
 			</p>
-			<NuxtLink>
+			<NuxtLink to="/auth?mode=signin">
 				<Button variant="solid" additional-classes="px-4 py-1">Start Learning</Button>
 			</NuxtLink>
 		</div>
