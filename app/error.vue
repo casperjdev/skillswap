@@ -59,8 +59,6 @@ const config = errorConfig[detectedStatusCode] || {
 };
 
 const displayMessage = detectedMessage || config.defaultMessage;
-
-const data = await $fetch('/api/nieistnieje');
 </script>
 
 <template>
