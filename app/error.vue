@@ -16,13 +16,8 @@ const route = useRoute();
 const detectedStatusCode = props.error?.statusCode || props.statusCode || 500;
 const detectedMessage = props.message || props.error?.message || props.error?.statusMessage;
 
-const goHome = () => {
-  router.push('/');
-};
-
-const retry = () => {
-  router.push(route.fullPath);
-};
+const goHome = () => navigateTo('/');
+const retry = () => navigateTo(route.fullPath);
 
 const errorConfig: Record<number, { title: string; defaultMessage: string; icon: string }> = {
   400: {
@@ -64,6 +59,8 @@ const config = errorConfig[detectedStatusCode] || {
 };
 
 const displayMessage = detectedMessage || config.defaultMessage;
+
+const data = await $fetch('/api/nieistnieje');
 </script>
 
 <template>
