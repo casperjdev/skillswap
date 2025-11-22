@@ -32,7 +32,7 @@ function switchTo(target: 'signin' | 'register') {
 		<!-- powrot -->
 
 		<NuxtLink class="fixed top-4 left-4" to="/">
-			<Button variant="solid" class="block">Return</Button>
+			<Button variant="solid" class="block">← Return</Button>
 		</NuxtLink>
 
 		<Card

@@ -14,20 +14,26 @@ definePageMeta({
 			class="pattern-[-45deg] text-neutral-950/25 absolute top-0 left-0 md:w-1/2 md:mask-alpha md:mask-r-from-0% w-full h-svh -z-50"></div>
 		<div
 			class="absolute top-0 left-0 md:w-1/2 w-full h-svh md:pl-12 md:pr-0 px-4 py-8 flex flex-col justify-center gap-2 md:text-start text-center">
-			<h1 class="uppercase font-extrabold xl:text-5xl sm:text-3xl text-xl text-neutral-50">
+			<h1
+				class="uppercase font-extrabold tracking-tight xl:text-5xl sm:text-3xl text-xl text-neutral-50">
 				Together we are stronger.
 			</h1>
 			<p class="sm:text-xs text-2xs text-neutral-200">
 				Youth2Youth is a platform where like-minded teenagers can exchange all types of knowledge -
 				from hobbies to real life advice.
 			</p>
-			<NuxtLink to="/auth?mode=signin">
-				<Button variant="solid" additional-classes="px-4 py-1">Start Learning</Button>
-			</NuxtLink>
+			<div class="flex md:gap-2 md:flex-row flex-col md:justify-start justify-center items-center">
+				<NuxtLink to="/auth?mode=signin">
+					<Button variant="clear" additional-classes="px-4 py-1">Start Learning</Button>
+				</NuxtLink>
+				<NuxtLink to="/mission-en">
+					<Button variant="solid" additional-classes="px-4 py-1">Our Mission</Button>
+				</NuxtLink>
+			</div>
 		</div>
 	</section>
 	<Separator />
-	<section class="pattern-thin-[90deg] text-neutral-950/50 md:px-12 px-4 py-8">
+	<section class="pattern-thin-[90deg] text-neutral-950/50 bg-black md:px-12 px-4 py-8">
 		<h1 class="text-center text-neutral-50 font-extrabold xl:text-base sm:text-sm text-xs">
 			Trusted by teens and young adults worldwide
 		</h1>
