@@ -31,19 +31,19 @@ const removeTag = (indexToRemove: number) => {
 
 <template>
 	<div
-		class="text-neutral-50 flex flex-col items-center py-2 px-4 sm:px-6 transition-all duration-300"
+		class="text-neutral-50 flex flex-col items-center transition-all duration-300"
 		:class="{
 			'opacity-0 translate-x-8': slideDirection === 'back',
 			'opacity-100 translate-x-0': slideDirection === '',
 		}">
-		<h3 class="text-lg sm:text-xl mb-2 text-center">Add some tags.</h3>
+		<h3 class="text-2xs sm:text-xs font-extrabold mb-2 text-center">Add some tags.</h3>
 		<div class="w-full my-2">
 			<input
 				v-model="currentTag"
 				type="text"
 				placeholder="Type a tag and press Enter"
 				@keydown="handleAddTag"
-				class="w-full py-2.5 sm:py-2 max-md:text-2xs px-3 border border-white/40 rounded-md text-sm sm:text-base bg-white/10 text-white placeholder-white/60 focus:outline-none focus:border-white/60" />
+				class="w-full rounded-md p-1 text-white font-light text-2xs backdrop-blur-[1px] bg-white/5 border border-neutral-200/80" />
 			<div
 				class="flex flex-nowrap overflow-x-scroll md:flex-wrap gap-2 mt-3 pb-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent hover:scrollbar-thumb-white/40">
 				<span
