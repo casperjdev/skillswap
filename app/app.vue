@@ -28,7 +28,6 @@ router.afterEach(() => {
 	</Head>
 	<NuxtLayout>
 		<GlobalLoader />
-
 		<NuxtPage />
 	</NuxtLayout>
 	<NuxtRouteAnnouncer />

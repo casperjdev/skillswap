@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import bg from '@/assets/images/home.jpg';
+import bg from '/img/home.jpg';
 </script>
 
 <template>

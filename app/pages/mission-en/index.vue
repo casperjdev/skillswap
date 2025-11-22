@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import bgImage from '@/assets/images/mission.jpg';
-
 definePageMeta({
 	layout: 'mission',
 });

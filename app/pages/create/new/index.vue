@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import bgImage from '~/assets/images/new-course.jpg';
+import bgImage from '/img/new-course.jpg';
 import StepName from '~/components/courseWizard/StepName.vue';
 import StepCoverImage from '~/components/courseWizard/StepCoverImage.vue';
 import StepDescription from '~/components/courseWizard/StepDescription.vue';
