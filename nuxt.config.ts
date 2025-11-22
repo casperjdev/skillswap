@@ -31,4 +31,8 @@ export default defineNuxtConfig({
 		strapiUrl: process.env.STRAPI_URL,
 		public: {},
 	},
+	experimental: {
+		inlineRouteRules: true,
+	},
+	ssr: true,
 });
