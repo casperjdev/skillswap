@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
 import bgImage from '@/assets/images/mission.jpg';
 </script>
 
