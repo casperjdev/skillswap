@@ -1,6 +1,6 @@
 <template>
 	<Separator />
-	<footer class="px-4 py-8 pattern-[45deg] text-neutral-950/50">
+	<footer class="px-4 py-8 pattern-[45deg] text-neutral-950/50 bg-black">
 		<div class="w-full max-w-2xl mx-auto flex lg:flex-row flex-col lg:gap-8 gap-4">
 			<div class="flex flex-col gap-2 mr-auto">
 				<span
