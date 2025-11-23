@@ -4,6 +4,22 @@ const route = useRoute();
 let path = computed(() => {
 	return route.path;
 });
+
+let menuOpen = ref(false);
+
+function open() {
+	menuOpen.value = true;
+	if (document) {
+		document.body.style.overflowY = 'hidden';
+	}
+}
+
+function close() {
+	menuOpen.value = false;
+	if (document) {
+		document.body.style.overflowY = '';
+	}
+}
 </script>
 
 <template>
@@ -15,7 +31,8 @@ let path = computed(() => {
 					youth2youth
 				</span>
 			</NuxtLink>
-			<div class="text-2xs h-full text-neutral-50 flex flex-row">
+			<!--  Desktop -->
+			<div class="hidden text-2xs h-full text-neutral-50 md:flex flex-row">
 				<NuxtLink
 					to="/home"
 					:class="[
@@ -69,7 +86,37 @@ let path = computed(() => {
 						]"></div>
 				</NuxtLink>
 			</div>
+
+			<button
+				@click="open()"
+				class="grid md:hidden place-items-center ml-auto text-neutral-50 hover:text-neutral-400 transition-colors cursor-pointer">
+				<Icon name="lucide:menu" class="w-4 h-4" />
+			</button>
+			<NuxtLink
+				to="/account"
+				class="grid place-items-center md:ml-auto text-neutral-50 hover:text-neutral-400 transition-colors">
+				<Icon name="lucide:circle-user" class="w-4 h-4" />
+			</NuxtLink>
 		</div>
 		<Separator />
 	</nav>
+	<!-- Mobile -->
+	<div
+		class="block md:hidden fixed top-0 right-0 w-32 h-svh bg-black pattern-[45deg] text-neutral-950/50 z-300 border-l border-neutral-500 transition-transform"
+		:class="[menuOpen ? 'translate-x-0' : 'translate-x-32']">
+		<div class="flex flex-col gap-2 text-2xs text-neutral-50 p-2">
+			<button
+				class="block ml-auto cursor-pointer hover:text-neutral-400 transition-colors"
+				@click="close()">
+				<Icon name="lucide:x" class="w-4 h-4" />
+			</button>
+			<NuxtLink class="hover:text-neutral-400 transition-colors" to="/home">Home</NuxtLink>
+			<NuxtLink class="hover:text-neutral-400 transition-colors" to="/discover">Discover</NuxtLink>
+			<NuxtLink class="hover:text-neutral-400 transition-colors" to="/teachers">Teachers</NuxtLink>
+			<NuxtLink class="hover:text-neutral-400 transition-colors" to="/create">Create</NuxtLink>
+		</div>
+	</div>
+	<div
+		v-show="menuOpen"
+		class="fixed top-0 left-0 w-svw h-svh bg-neutral-950/50 backdrop-blur-sm z-200 pointer-events-none"></div>
 </template>

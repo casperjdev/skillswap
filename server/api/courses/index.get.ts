@@ -1,6 +1,6 @@
-import type { Course } from '~/types/strapi/courses';
+import type { CourseList } from '~/types/strapi/courses';
 
-export default defineEventHandler<Promise<{ data: Course[] } | null>>(async (event) => {
+export default defineEventHandler<Promise<{ res: CourseList } | null>>(async (event) => {
 	const config = useRuntimeConfig();
 	const STRAPI = config.strapiUrl;
 
@@ -8,14 +8,14 @@ export default defineEventHandler<Promise<{ data: Course[] } | null>>(async (eve
 	if (!jwt) return null;
 
 	try {
-		const data = await $fetch<Course[]>(
+		const res = await $fetch<CourseList>(
 			`${STRAPI}/courses?populate=cover&populate=tags&populate=authors`,
 			{
 				headers: { Authorization: `Bearer ${jwt}` },
 			}
 		);
 
-		return { data };
+		return { res };
 	} catch (e) {
 		throw createError({
 			statusCode: 401,

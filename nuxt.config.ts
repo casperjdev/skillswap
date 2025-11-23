@@ -30,11 +30,14 @@ export default defineNuxtConfig({
 	},
 	runtimeConfig: {
 		strapiUrl: process.env.STRAPI_URL,
+
 		public: {},
 	},
 	experimental: {
 		inlineRouteRules: true,
+		payloadExtraction: false,
 	},
+
 	ssr: true,
 	toast: {
 		settings: {
@@ -43,5 +46,13 @@ export default defineNuxtConfig({
 			closeOnEscape: true,
 			closeOnClick: true,
 		},
+	},
+	image: {
+		strapi: {
+			baseURL: 'http://54.38.138.75:1337',
+		},
+	},
+	nitro: {
+		preset: 'vercel',
 	},
 });
