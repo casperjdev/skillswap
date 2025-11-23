@@ -31,39 +31,27 @@ const textareaRef = ref<HTMLTextAreaElement | null>(null);
 const showToast = ref(false);
 const toastMessage = ref('Changes Saved');
 
-const token = useCookie('token');
-const config = useRuntimeConfig();
-
+// --- FETCHING ---
 const fetchCourseData = async () => {
   try {
-    const strapiBase = config.public?.strapiUrl || 'http://localhost:1337/api';
+    // Let's grab the whole response first to be safe
+    const response = await $fetch<any>(`/api/courses/${courseId}`);
 
-    const [courseRes, userRes] = await Promise.all([
-      $fetch<any>(`/api/courses/${courseId}`),
-      $fetch<any>(`${strapiBase}/users/me`, {
-        headers: { Authorization: `Bearer ${token.value}` }
-      })
-    ]);
-
-    const realCourseData = courseRes.data?.data || courseRes.data;
+    // Handle the Double Data Wrapper
+    // We check if 'data' exists, and if it has a nested 'data' property
+    const realCourseData = response.data?.data || response.data;
 
     if (realCourseData) {
-      const isAuthor = realCourseData.authors?.some((a: any) => a.id === userRes.id || a.documentId === userRes.documentId);
-
-      if (!isAuthor) {
-        showToast.value = true;
-        toastMessage.value = "⛔ You don't have permission to edit this.";
-        setTimeout(() => navigateTo('/home'), 1000);
-        return false;
-      }
-
       courseData.value = realCourseData;
+
+      // Now we can safely access the lessons array
       lessons.value = realCourseData.lessons || [];
+
+      console.log('Lessons loaded:', lessons.value.length); // Quick sanity check
       return true;
     }
   } catch (e) {
-    console.error('Access denied or error', e);
-    navigateTo('/home');
+    console.error('Failed to load course', e);
     return false;
   }
   return false;
@@ -110,7 +98,9 @@ const loadLesson = (id: string | number) => {
   if (lesson) {
     lessonName.value = lesson.title || '';
 
+    // --- DECODER: Szukamy ukrytego linku w treści ---
     let rawContent = lesson.content || '';
+    // Regex łapie <!-- video-url: https://youtube... -->
     const videoMatch = rawContent.match(/<!--\s*video-url:(.*?)\s*-->/);
 
     if (videoMatch && videoMatch[1]) {
@@ -146,6 +136,7 @@ const saveCourse = async () => {
   saving.value = true;
 
   try {
+    // Prosty payload - wysyłamy po prostu string URL
     const payloadLessons = lessons.value.map(l => ({
       documentId: l.documentId,
       title: l.title,
@@ -207,9 +198,11 @@ const formatBlockquote = () => insertFormat('> ');
 
 const parsedContent = computed(() => marked.parse(content.value));
 
+// Obsługa YouTube URL -> Embed
 const embedUrl = computed(() => {
   if (!videoUrl.value) return null;
 
+  // Wyciągamy ID z linku YouTube (obsługuje youtu.be, youtube.com/watch, embed)
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = videoUrl.value.match(regExp);
 
@@ -217,7 +210,7 @@ const embedUrl = computed(() => {
     return `https://www.youtube.com/embed/${match[2]}`;
   }
 
-  return null;
+  return null; // Jeśli to nie YouTube, nie wyświetlamy iframe (bezpieczniej)
 });
 </script>
 
