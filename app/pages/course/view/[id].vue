@@ -11,6 +11,7 @@ const route = useRoute();
 const courseId = route.params.id as string;
 
 // --- STATE ---
+const router = useRouter();
 const loading = ref(true);
 const courseData = ref<Course | null>(null);
 const lessons = ref<Lesson[]>([]);
@@ -291,13 +292,15 @@ const prevLesson = () => goToLesson(currentLessonIdx.value - 1);
             </div>
 
             <Button
-                @click="nextLesson"
-                :disabled="currentLessonIdx === lessons.length - 1"
+                @click="currentLessonIdx === lessons.length - 1 ? router.push('/finished') : nextLesson()"
                 class="flex items-center gap-2 text-xs md:text-sm font-bold text-black bg-emerald-600 hover:bg-emerald-500 transition-colors disabled:opacity-30 disabled:bg-neutral-800 rounded-lg shadow-lg shadow-emerald-900/20 px-3 py-2">
+
               <span v-if="currentLessonIdx === lessons.length - 1">Finish</span>
               <span v-else class="hidden sm:inline">Next Lesson</span>
+
               <Icon name="lucide:arrow-right" class="w-3 h-3 md:w-4 md:h-4" />
             </Button>
+
           </footer>
         </div>
       </Transition>
