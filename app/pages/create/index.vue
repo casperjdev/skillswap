@@ -5,8 +5,6 @@ definePageMeta({
 
 const config = useRuntimeConfig();
 
-const STRAPI = (config.public.STRAPI_URL || 'http://54.38.138.75:1337').replace('/api', '');
-
 const { data: userData } = await useFetch('/api/auth/me');
 const currentUserId = userData.value?.user?.id;
 
@@ -19,6 +17,7 @@ const myCourses = computed(() => {
       course.authors?.some(author => author.id === currentUserId)
   );
 });
+
 </script>
 
 <template>

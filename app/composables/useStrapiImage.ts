@@ -8,7 +8,7 @@ export const useStrapiImage = (path?: string | null) => {
     } else {
         fullUrl = `http://54.38.138.75:1337${path.startsWith('/') ? path : '/' + path}`;
     }
-
+    fetch(fullUrl, { method: 'GET' }).catch(() => {});
     // Return the proxy URL with encoded parameter
     return `/api/proxy-image?url=${encodeURIComponent(fullUrl)}`;
 };
