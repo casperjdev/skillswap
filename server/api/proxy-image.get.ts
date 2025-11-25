@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
         // Set response headers
         setResponseHeader(event, 'Content-Type', contentType);
         setResponseHeader(event, 'Content-Length', imageBuffer.byteLength.toString());
-        setResponseHeader(event, 'Cache-Control', 'public, max-age=31536000, immutable');
+        setResponseHeader(event, 'Cache-Control', 'no-cache');
 
         // Return the buffer directly
         return new Uint8Array(imageBuffer);
