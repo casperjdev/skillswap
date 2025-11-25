@@ -46,7 +46,7 @@ function toggleTag(tag: string) {
 
 	currentData.value.tags = tagsArr;
 
-	console.log(currentData.value.tags);
+	currentData.value.tags;
 }
 
 async function save() {
@@ -75,7 +75,7 @@ function cancel() {
 		tags: user.value?.tags,
 	};
 
-	console.log(currentData);
+	currentData;
 
 	editing.value = false;
 }
