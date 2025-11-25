@@ -50,7 +50,7 @@ const myCourses = computed(() => {
           <div class="flex-shrink-0 w-32 h-20 rounded overflow-hidden bg-neutral-800">
             <img
                 v-if="course.cover"
-                :src="`${STRAPI}${course.cover.url}`"
+                :src="useStrapiImage(course.cover.url)"
                 :alt="course.title"
                 class="w-full h-full object-cover"
             />
