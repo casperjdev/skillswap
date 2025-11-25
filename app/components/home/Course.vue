@@ -14,7 +14,7 @@ const { data } = defineProps<Props>();
 			<img
 				class="absolute top-0 left-0 w-full h-full -z-20 object-cover object-top mask-alpha mask-b-from-0 mask-b-to-100% opacity-75"
 				v-if="data.cover?.formats?.thumbnail?.url"
-				:src="useStrapiImage(data.cover.url)"
+				:src="useStrapiImage(data.cover.formats.thumbnail?.url || data.cover.url)"
 				provider="strapi" />
 
 			<h1 class="text-neutral-50 text-xs font-extrabold">{{ data.title }}</h1>
