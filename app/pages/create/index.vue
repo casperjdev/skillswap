@@ -21,7 +21,7 @@ const myCourses = computed(() => {
 
 <template>
 	<div class="h-[calc(100svh-128px)] flex flex-col items-center max-w-4xl gap-4 mx-auto px-4">
-		<h1 class="text-neutral-50 font-extrabold text-2xl">Creator Dashboard</h1>
+		<h1 class="text-neutral-50 font-extrabold">Creator Dashboard</h1>
 
 		<Card
 			class="w-full backdrop-blur-sm bg-black/10! text-neutral-950/10! flex flex-col gap-4 flex-1 overflow-hidden">
