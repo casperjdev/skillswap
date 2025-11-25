@@ -31,7 +31,6 @@ const fetchCourseData = async () => {
 
     if (realCourseData) {
       courseData.value = realCourseData;
-      // Handle Strapi quirks (attributes vs direct array)
       lessons.value = realCourseData.lessons || realCourseData.attributes?.lessons || [];
       return true;
     }
@@ -40,6 +39,10 @@ const fetchCourseData = async () => {
   }
   return false;
 };
+
+const author = computed(() => {
+  return courseData.value?.authors?.[0] ?? null;
+});
 
 onMounted(async () => {
   if (!courseId) {
@@ -59,10 +62,7 @@ const progressPercent = computed(() => {
 
 // Parse Markdown Content
 const parsedContent = computed(() => {
-  if (!currentLesson.value?.content) return '';
-  // Clean up any custom tags if needed, or just render
-  let content = currentLesson.value.content;
-  // Remove the video tag from text if it exists (since we render it separately)
+  if (!currentLesson.value?.content) return '';let content = currentLesson.value.content;
   content = content.replace(/<!--\s*videoUrl:.*?\s*-->/g, '');
   return marked.parse(content);
 });
@@ -131,29 +131,35 @@ const prevLesson = () => goToLesson(currentLessonIdx.value - 1);
           <div class="relative z-10 container mx-auto px-4 py-4 max-w-4xl">
             <Button
                 @click="navigateTo('/home')"
-                class="mb-8 flex items-center gap-1 transition-colors">
+                class="mb-2 flex items-center gap-1 transition-colors">
               <Icon name="lucide:arrow-left" class="w-2 h-2" /> Back to Home
             </Button>
 
             <h1
-                class="xl:text-5xl sm:text-3xl text-xl font-extrabold tracking-tight mb-6 leading-tight">
+                class="xl:text-3xl sm:text-3xl text-xl font-extrabold tracking-tight mb-4 leading-tight">
               {{ courseData.title || courseData.name }}
             </h1>
 
-            <p class="sm:text-xs text-2xs text-neutral-400 leading-relaxed max-w-2xl mb-8">
+            <p class="sm:text-xs text-2xs text-neutral-400 leading-relaxed max-w-xl mb-4">
               {{ courseData.description || 'No description provided.' }}
             </p>
 
             <!-- Tags -->
             <div
                 v-if="courseData.tags && courseData.tags.length"
-                class="flex flex-wrap gap-2 mb-10">
+                class="flex flex-wrap gap-2 mb-4">
 							<span
                   v-for="tag in courseData.tags"
                   :key="tag.id || tag"
                   class="px-3 py-1 rounded-full bg-white/5 border border-white/10 sm:text-xs text-2xs font-bold text-neutral-300">
 								#{{ tag.label || tag }}
 							</span>
+            </div>
+
+            <div v-if="author" class="flex items-center gap-3 mb-6 text-neutral-400">
+              <span class="text-sm font-medium">
+                By <span class="text-white font-bold">{{ author.username || author.name || 'Unknown Author' }}</span>
+              </span>
             </div>
 
             <!-- CTA -->
@@ -173,7 +179,7 @@ const prevLesson = () => goToLesson(currentLessonIdx.value - 1);
             </div>
 
             <!-- Lessons List Preview -->
-            <div class="mt-20 border-t border-neutral-800 pt-10">
+            <div class="sm:mt-20 mt-8 border-t border-neutral-800 pt-4">
               <h3
                   class="sm:text-xs text-2xs font-bold uppercase tracking-wider text-neutral-500 mb-6">
                 Course Syllabus
