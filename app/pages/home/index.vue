@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Course } from '~/types/strapi/courses';
+import { type CourseList, type Course } from '~/types/strapi/courses';
 
 definePageMeta({
 	layout: 'dashboard',
@@ -9,12 +9,18 @@ const { user } = useAuth();
 // Last course
 const id = useCookie('lastCourse');
 const latestCourse = ref<Course | null>();
+const recommendedCourses = ref<Course[] | null>();
 
 onMounted(async () => {
 	if (id.value) {
 		const response = await $fetch<any>(`/api/courses/${id.value}`);
 		const strapiResponse = response.res || response;
 		latestCourse.value = strapiResponse?.data || strapiResponse;
+	}
+
+	if (user) {
+		const res = await $fetch(`/api/auth/recommended`);
+		recommendedCourses.value = res?.res.data;
 	}
 });
 </script>
@@ -51,8 +57,20 @@ onMounted(async () => {
 				class="flex-1 bg-black/25! text-neutral-950/25! backdrop-blur-sm flex flex-col gap-2 max-h-64">
 				<h1 class="text-neutral-50 font-extrabold sm:text-xs text-2xs">Recommended for you</h1>
 				<div
-					v-if="user?.tags && user.tags.length > 0"
-					class="grid sm:grid-cols-2 grid-cols-1 gap-2 overflow-auto h-full"></div>
+					v-if="
+						user?.tags &&
+						user.tags.length > 0 &&
+						recommendedCourses &&
+						recommendedCourses?.length > 0
+					"
+					class="flex flex-col gap-2 overflow-y-auto h-full">
+					<Course v-for="course in recommendedCourses.slice(0, 4)" :data="course" />
+				</div>
+				<div
+					v-else-if="recommendedCourses?.length == 0"
+					class="text-neutral-200 w-full h-full grid place-items-center sm:text-xs text-2xs">
+					We couldnt find any recommendations
+				</div>
 				<div
 					v-else
 					class="text-neutral-200 w-full h-full grid place-items-center sm:text-xs text-2xs">

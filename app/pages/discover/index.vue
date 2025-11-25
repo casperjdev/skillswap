@@ -20,8 +20,6 @@ async function search() {
 				query: { q: searchString.value, populate: 'tags' },
 			});
 
-			console.log(res);
-
 			resultCourses.value = res?.res.data;
 			loading.value = false;
 		}
