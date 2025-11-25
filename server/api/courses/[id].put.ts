@@ -63,7 +63,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // --- 3) attach lessons to course ---
-        const { data } = await $fetch<{ data: Course }>(`${strapiUrl}/courses/${courseId}`, {
+        const { data } = await $fetch<{ data: Course }>(`${strapiUrl}/courses/${courseId}?populate=lessons`, {
             method: 'PUT',
             headers: { Authorization: `Bearer ${jwt}` },
             body: { data: { lessons: validLessonIds } },

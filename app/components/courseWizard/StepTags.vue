@@ -20,15 +20,29 @@ const tagsError = ref<string | null>(null);
 onMounted(async () => {
   try {
     loadingTags.value = true;
-    const response = await $fetch<{ data: Array<{ id: number; label: string }> }>(
-        '/api/tags',
-        {
-          method: 'GET',
-        }
-    );
 
-    availableTags.value = response.data || [];
-    console.log('✅ Loaded tags:', availableTags.value.length);
+    const response = await $fetch<any>('/api/tags', { method: 'GET' });
+
+    // Debug: always log the raw response so you can see the exact shape
+    console.log('📦 Raw response from /api/tags:', response);
+
+    // Flexible mapping: handle different API shapes like:
+    // { data: [...] } or { res: { data: [...] } } or { data: { data: [...] } } or plain [...]
+    const maybeData =
+        response?.data ??
+        response?.res?.data ??
+        response?.data?.data ??
+        response;
+
+    // Normalize into simple array of { id, label }
+    availableTags.value = (maybeData || []).map((t: any) => ({
+      id: t.id ?? t.documentId ?? t._id ?? Math.random(),
+      label: (t.label ?? t.attributes?.label ?? t.attributes?.name ?? '').toString()
+    })).filter((t: any) => t.label && t.label.length > 0);
+
+    // Debug: show what the component will actually use
+    console.log('🏷️ Parsed available tags:', availableTags.value);
+
   } catch (err: any) {
     console.error('❌ Failed to load tags:', err);
     tagsError.value = 'Failed to load tags';
@@ -36,6 +50,7 @@ onMounted(async () => {
     loadingTags.value = false;
   }
 });
+
 
 const toggleTag = (label: string) => {
   const current = [...props.modelValue];
@@ -86,14 +101,14 @@ const isSelected = (label: string) => {
         No tags available. Contact admin to create tags.
       </div>
 
-      <div v-else class="flex flex-wrap gap-2 max-h-64 overflow-y-auto py-2">
+      <div v-else class="flex flex-wrap gap-2 max-h-32 overflow-y-auto py-2">
         <button
             v-for="tag in availableTags"
             :key="tag.id"
             type="button"
             @click="toggleTag(tag.label)"
             :class="[
-            'px-3 py-1.5 rounded-full text-sm font-medium transition-all',
+            'px-3 py-1.5 capitalize rounded-full text-sm font-medium transition-all',
             'border-2 hover:scale-105 active:scale-95',
             isSelected(tag.label)
               ? 'bg-white text-neutral-900 border-white'
