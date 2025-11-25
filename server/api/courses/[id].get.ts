@@ -10,7 +10,7 @@ export default defineEventHandler<Promise<{ res: Course } | null>>(async (event)
 	const id = getRouterParam(event, 'id');
 
 	try {
-		const res = await $fetch<Course>(`${STRAPI}/courses/${id}?populate=cover`, {
+		const res = await $fetch<Course>(`${STRAPI}/courses/${id}?populate=*`, {
 			headers: { Authorization: `Bearer ${jwt}` },
 		});
 
