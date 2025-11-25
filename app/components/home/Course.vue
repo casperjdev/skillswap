@@ -18,5 +18,8 @@ const { data } = defineProps<Props>();
 
 		<h1 class="text-neutral-50 text-xs font-extrabold">{{ data.title }}</h1>
 		<p class="text-neutral-200 text-2xs">{{ data.description }}</p>
+		<div class="flex flex-row flex-wrap">
+			<span class="text-[6px]" v-for="tag in data.tags">{{ tag.label }}</span>
+		</div>
 	</Card>
 </template>

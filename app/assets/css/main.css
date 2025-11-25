@@ -1,32 +1,30 @@
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 
 :root {
-    font-family: 'Inter', sans-serif;
-    font-size: 32px;
-    font-optical-sizing: auto;
-    font-style: normal;
-    background-color: black;
-    height: 100%;
-    scrollbar-width: 4px;
-    scrollbar-track-color: transparent;
-    scrollbar-color: transparent #fafafa;
+	font-family: 'Inter', sans-serif;
+	font-size: 32px;
+	font-optical-sizing: auto;
+	font-style: normal;
+	background-color: black;
+	height: 100%;
+	scrollbar-width: 4px;
+	scrollbar-track-color: transparent;
+	scrollbar-color: transparent #fafafa;
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
-    background-color: transparent;
+	width: 4px;
+	background-color: transparent;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: transparent;
+	background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: blue;
+	background-color: blue;
 }
-
-
-
 
 @theme {
 	--text-2xs: 0.5rem;
