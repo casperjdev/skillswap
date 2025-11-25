@@ -11,10 +11,10 @@ const { data } = defineProps<Props>();
 <template>
 	<NuxtLink class="w-full h-full" :to="`/course/view/${data.documentId}`">
 		<Card class="w-full h-full relative overflow-hidden z-0 flex flex-col gap-1 justify-end">
-			<NuxtImg
+			<img
 				class="absolute top-0 left-0 w-full h-full -z-20 object-cover object-top mask-alpha mask-b-from-0 mask-b-to-100% opacity-75"
 				v-if="data.cover?.formats?.thumbnail?.url"
-				:src="data.cover?.formats?.thumbnail?.url"
+				:src="useStrapiImage(data.cover.url)"
 				provider="strapi" />
 
 			<h1 class="text-neutral-50 text-xs font-extrabold">{{ data.title }}</h1>
