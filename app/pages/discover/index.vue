@@ -38,7 +38,7 @@ async function search() {
 			placeholder="Search..."
 			id="search"
 			class="sm:w-1/2 w-full rounded-md p-1 text-white font-light text-2xs backdrop-blur-[1px] bg-neutral-50/5 border border-neutral-200/80" />
-		<Card class="w-full backdrop-blur-sm bg-black/10! text-neutral-950/10! flex-1 overflow-scroll">
+		<Card class="w-full backdrop-blur-sm bg-black/10! text-neutral-950/10! flex-1 overflow-auto">
 			<div v-if="loading" class="w-full h-full grid place-items-center">
 				<Icon name="lucide:loader-2" class="text-neutral-50 w-8 h-8 animate-spin" />
 			</div>
