@@ -35,8 +35,8 @@ definePageMeta({
 	</NuxtLink>
 
 	<Card
-		additional-classes="relative w-full max-w-xl bg-black/10! text-neutral-950/10! items-end backdrop-blur-sm flex md:flex-row flex-col-reverse gap-4">
-		<div class="w-full md:absolute top-0 left-0 md:p-2 order-1">
+		additional-classes="relative w-full max-w-xs bg-black/10! text-neutral-950/10! items-end backdrop-blur-sm flex flex-col gap-4">
+		<div class="w-full top-0 left-0 md:p-2">
 			<span
 				class="block w-full font-extrabold italic text-base md:text-start text-center text-transparent bg-linear-180 from-50% from-neutral-50 to-100% to-neutral-400 bg-clip-text">
 				youth2youth
@@ -47,7 +47,7 @@ definePageMeta({
 		</div>
 
 		<div
-			class="flex md:w-1/2 ml-auto w-full h-full flex-col gap-4 items-center bg-transparent justify-center overflow-hidden">
+			class="flex w-full h-full flex-col gap-4 items-center bg-transparent justify-center overflow-hidden">
 			<Transition name="slide-panel" mode="out-in">
 				<SignInPanel v-if="mode === 'signin'" key="signin" @switch-mode="switchTo('register')" />
 				<RegisterPanel v-else key="register" @switch-mode="switchTo('signin')" />
