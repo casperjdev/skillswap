@@ -102,14 +102,14 @@ onMounted(async () => {
 					<Icon name="lucide:loader-2" class="text-neutral-50 w-8 h-8 animate-spin" />
 				</div>
 				<div
+					v-else-if="user?.tags.length == 0"
+					class="text-neutral-200 w-full h-full grid place-items-center sm:text-xs text-2xs">
+					You havent set up any tags. Hint: go to your profile :)
+				</div>
+				<div
 					v-else-if="recommendedCourses?.length == 0"
 					class="text-neutral-200 w-full h-full grid place-items-center sm:text-xs text-2xs">
 					We couldnt find any recommendations
-				</div>
-				<div
-					v-else
-					class="text-neutral-200 w-full h-full grid place-items-center sm:text-xs text-2xs">
-					You havent set up any tags. Hint: go to your profile :)
 				</div>
 			</Card>
 		</div>

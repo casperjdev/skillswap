@@ -16,7 +16,7 @@ async function search() {
 	if (searchString.value.trim() !== '') {
 		debounce = setTimeout(async () => {
 			loading.value = true;
-			const res = await $fetch('/api/courses', {
+			const res = await $fetch('/api/search/courses', {
 				query: { q: searchString.value, populate: 'tags' },
 			});
 
