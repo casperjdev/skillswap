@@ -13,8 +13,8 @@ let debounce: NodeJS.Timeout;
 async function search() {
 	if (debounce) clearTimeout(debounce);
 
-	debounce = setTimeout(async () => {
-		if (searchString.value.trim() !== '') {
+	if (searchString.value.trim() !== '') {
+		debounce = setTimeout(async () => {
 			loading.value = true;
 			const res = await $fetch('/api/courses', {
 				query: { q: searchString.value, populate: 'tags' },
@@ -22,9 +22,19 @@ async function search() {
 
 			resultCourses.value = res?.res.data;
 			loading.value = false;
-		}
-	}, 500);
+		}, 500);
+	} else {
+		loading.value = true;
+		const res = await $fetch('/api/courses', {
+			query: { populate: 'tags' },
+		});
+
+		resultCourses.value = res?.res.data;
+		loading.value = false;
+	}
 }
+
+onMounted(() => search());
 </script>
 
 <template>
